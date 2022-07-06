@@ -2,22 +2,25 @@ package stackandqueue;
 
 public class LargestRectangleInHistogram {
     public int largestRectangleArea(int[] heights) {
-        int area = 0;
-        //暴力解法
+        int maxArea = 0;
+        //暴力解法二
         for (int i = 0; i< heights.length; i++) {
-            for (int j = i; j< heights.length; j++) {
-                area = Math.max(area,(j-i +1) * getMin(heights,i,j));
-            }
+            maxArea = Math.max(maxArea,(getRight(heights,heights[i],i) - getLeft(heights,heights[i],i) - 1) * heights[i]);
         }
-        return area;
-
+        return maxArea;
     }
 
-    private int getMin(int[] nums,int left, int right) {
-        int min = nums[left];
-        for (int i = left+1; i<= right; i++) {
-            min = Math.min(min,nums[i]);
+    private int getLeft(int[] nums, int val, int index) {
+        for (int i = index - 1; i >= 0; i--) {
+            if (nums[i] < val) return i;
         }
-        return min;
+        return -1;
+    }
+
+    private int getRight(int[] nums, int val, int index) {
+        for (int i = index + 1; i < nums.length; i++) {
+            if (nums[i] < val) return i;
+        }
+        return nums.length;
     }
 }
