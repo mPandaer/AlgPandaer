@@ -1,14 +1,18 @@
 package stackandqueue;
 
+import java.util.HashSet;
+
 public class LinkedListCycle {
     public boolean hasCycle(ListNode head) {
-        //经典做法，快慢指针
-        ListNode fast = head;
-        ListNode slow = head;
-        while(fast != null && fast.next != null) {
-            fast = fast.next.next;
-            slow = slow.next;
-            if (fast == slow) return true;
+        //用Set查重
+        HashSet<ListNode> hashSet = new HashSet<>();
+        ListNode cur = head;
+        while(cur != null) {
+            if (hashSet.contains(cur)){
+                return true;
+            }
+            hashSet.add(cur);
+            cur = cur.next;
         }
         return false;
     }
