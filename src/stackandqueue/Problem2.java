@@ -6,11 +6,18 @@ package stackandqueue;
 @SuppressWarnings("all")
 public class Problem2 {
     public ListNode swapPairs(ListNode head) {
-        //递归
         if (head == null || head.next == null) return head;
-        ListNode second = head.next;
-        head.next = swapPairs(head.next.next);
-        second.next = head;
-        return second;
+
+        ListNode cur = head;
+        ListNode newHead = head.next;
+        while(cur != null && cur.next != null) {
+            ListNode temp = cur;
+            cur = cur.next;
+            temp.next = cur.next;
+            cur.next = temp;
+            cur = temp.next;
+            if (cur != null && cur.next != null) temp.next = cur.next;
+        }
+        return newHead;
     }
 }
