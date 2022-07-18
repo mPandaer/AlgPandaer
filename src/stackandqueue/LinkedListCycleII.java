@@ -4,15 +4,20 @@ import java.util.HashSet;
 
 public class LinkedListCycleII {
     public ListNode detectCycle(ListNode head) {
-        //用set
-        HashSet<ListNode> hashSet = new HashSet<>();
-        ListNode cur = head;
-        while(cur != null) {
-            if (hashSet.contains(cur)){
-                return cur;
+       //快慢指针
+        ListNode fast = head;
+        ListNode slow = head;
+        while(fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                ListNode temp = head;
+                while(temp != fast) {
+                    temp = temp.next;
+                    fast = fast.next;
+                }
+                return fast;
             }
-            hashSet.add(cur);
-            cur = cur.next;
         }
         return null;
     }
