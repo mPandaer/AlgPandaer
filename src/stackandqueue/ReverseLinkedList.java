@@ -23,13 +23,16 @@ class ListNode {
 
 public class ReverseLinkedList {
     public ListNode reverseList(ListNode head) {
-        //递归的解法
-        if (head == null || head.next == null) {
-            return head;
+        //魔化后的双指针
+        ListNode cur = head;
+        if (head == null) return head;
+        while(head.next != null) {
+            ListNode temp = head.next.next;
+            head.next.next = cur;
+            cur = head.next;
+            head.next = temp;
         }
-        ListNode newHead = reverseList(head.next);
-        head.next.next = head;
-        head.next = null;
-        return newHead;
+
+        return cur;
     }
 }
