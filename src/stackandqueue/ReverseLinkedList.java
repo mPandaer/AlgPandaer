@@ -23,20 +23,13 @@ class ListNode {
 
 public class ReverseLinkedList {
     public ListNode reverseList(ListNode head) {
-        if (head == null || head.next == null){
+        //递归的解法
+        if (head == null || head.next == null) {
             return head;
         }
-
-        ListNode newHead = null;
-        ListNode current = head;
-        while(current != null) {
-            ListNode nextNode  = current.next;
-            current.next = newHead;
-
-            newHead = current;
-            current = nextNode;
-            if (nextNode != null) nextNode = nextNode.next;
-        }
+        ListNode newHead = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
         return newHead;
     }
 }
