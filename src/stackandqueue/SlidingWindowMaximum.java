@@ -2,6 +2,9 @@ package stackandqueue;
 
 import java.util.*;
 
+/**
+ * https://leetcode.cn/problems/sliding-window-maximum/submissions/
+ */
 public class SlidingWindowMaximum {
     public int[] maxSlidingWindow(int[] nums, int k) {
         //简洁的双端队列法

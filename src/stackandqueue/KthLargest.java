@@ -2,6 +2,9 @@ package stackandqueue;
 
 import java.util.PriorityQueue;
 
+/**
+ * https://leetcode.cn/problems/kth-largest-element-in-a-stream/
+ */
 public class KthLargest {
     private final PriorityQueue<Integer> queue;
     private final int k;

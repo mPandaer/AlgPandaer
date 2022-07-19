@@ -2,6 +2,9 @@ package stackandqueue;
 
 import java.util.LinkedList;
 
+/**
+ * https://leetcode.cn/problems/implement-queue-using-stacks/
+ */
 public class MyQueue {
     LinkedList<Integer> input = new LinkedList<>();
     LinkedList<Integer> output = new LinkedList<>();
