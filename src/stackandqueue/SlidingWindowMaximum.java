@@ -4,42 +4,30 @@ import java.util.*;
 
 public class SlidingWindowMaximum {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        //普通队列法
-        Queue<Integer> queue = new LinkedList<>();
-        ArrayList<Integer> res = new ArrayList<>();
+        //简洁的双端队列法
+        Deque<Integer> deque = new LinkedList<>();
+        if (nums ==null || nums.length < k) return nums;
+        int[] res = new int[nums.length - k + 1];
 
-        for (int i = 0; i<k;i++) {
-            queue.add(nums[i]);
+
+        for (int i = 0; i<nums.length;i++) {
+            //保证加入元素时，队列 由大到小
+            while(!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
+                deque.pollLast();
+            }
+            deque.add(i);
+            //------------------------------
+
+            //判断队首是否在滑窗内部 i：队尾
+            if (deque.peekFirst() <= i -k) {
+                deque.pollFirst();
+            }
+            //判断是否建立好滑窗
+            if (i + 1 >= k) {
+                res[i+1-k] = nums[deque.peekFirst()];
+            }
         }
-        maintain(queue);
-        res.add(queue.peek());
-        for (int i = k ;i<nums.length; i++) {
-            if (queue.size() >= k) queue.remove();
-            queue.add(nums[k]);
-            maintain(queue);
-
-            res.add(queue.peek());
-        }
-
-        int[] resArray = new int[res.size()];
-        int index = 0;
-        for (Integer num : res) {
-            resArray[index++] = num;
-        }
-        return resArray;
-
+        return res;
     }
 
-    public void maintain(Queue<Integer> queue) {
-        int max = queue.peek();
-        for (Integer num : queue) {
-            if (num > max) max = num;
-        }
-        while(!queue.isEmpty()) {
-            if (queue.peek() != max) queue.remove();
-            else return;
-        }
-
-
-    }
 }
